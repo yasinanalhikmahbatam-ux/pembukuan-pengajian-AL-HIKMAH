@@ -101,43 +101,6 @@ function callServer(fn,...args){
   });
 }
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbw7SrE0gygQ_CgALMF0CmV4DS4DXpCvRCfuicAcRMEuus1UFDt41Z87ltIS6LUraHJ-kg/exec';
-
-function callServer(fn,...args){
-  return new Promise((resolve,reject)=>{
-    const callbackName='apiCallback_'+Date.now()+'_'+Math.random().toString(36).slice(2);
-
-    const script=document.createElement('script');
-
-    window[callbackName]=function(response){
-      try{
-        if(response && response.ok){
-          resolve(response.data);
-        }else{
-          reject(new Error(response && response.error ? response.error : 'API gagal.'));
-        }
-      }finally{
-        delete window[callbackName];
-        script.remove();
-      }
-    };
-
-    script.onerror=function(){
-      delete window[callbackName];
-      script.remove();
-      reject(new Error('Tidak dapat terhubung ke API Apps Script.'));
-    };
-
-    const params=new URLSearchParams();
-    params.set('api','1');
-    params.set('fn',fn);
-    params.set('args',JSON.stringify(args));
-    params.set('callback',callbackName);
-
-    script.src=API_URL+'?'+params.toString();
-    document.body.appendChild(script);
-  });
-}
 
 function clearFastCache(){
   FAST_CACHE.clear();
