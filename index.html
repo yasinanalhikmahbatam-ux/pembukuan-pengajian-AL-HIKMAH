@@ -100,7 +100,38 @@ function callServer(fn,...args){
     document.head.appendChild(script);
   });
 }
+function callServerFast(fn,...args){
+  const key=fn+'|'+JSON.stringify(args);
+  const now=Date.now();
+  const cached=FAST_CACHE.get(key);
 
+  if(cached && now-cached.time<CACHE_TTL){
+    Promise.resolve()
+      .then(()=>callServer(fn,...args))
+      .then(v=>{
+        FAST_CACHE.set(key,{time:Date.now(),value:v});
+      })
+      .catch(()=>{});
+
+    return Promise.resolve(cached.value);
+  }
+
+  if(INFLIGHT.has(key)) return INFLIGHT.get(key);
+
+  const req=callServer(fn,...args)
+    .then(v=>{
+      FAST_CACHE.set(key,{time:Date.now(),value:v});
+      INFLIGHT.delete(key);
+      return v;
+    })
+    .catch(e=>{
+      INFLIGHT.delete(key);
+      throw e;
+    });
+
+  INFLIGHT.set(key,req);
+  return req;
+}
 
 function clearFastCache(){
   FAST_CACHE.clear();
