@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Pembukuan Pengajian</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#edf7f5;color:#102a2a}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.app{display:flex;min-height:100vh}.sidebar{width:195px;background:#00796b;color:#fff;padding:16px 8px;position:fixed;left:0;top:0;bottom:0;z-index:10}.brand{display:flex;gap:10px;align-items:center;padding:0 8px 22px}.brand-icon{width:44px;height:44px;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:23px}.brand h1{font-size:17px;line-height:1.15;margin:0}.brand small{font-size:11px;opacity:.9}.nav button{width:100%;text-align:left;background:transparent;color:#fff;padding:12px 9px;border-radius:11px;margin:3px 0;font-weight:600}.nav button:hover,.nav button.active{background:#07947f}.main{margin-left:195px;width:calc(100% - 195px);min-height:100vh}.topbar{height:65px;background:#fff;border-bottom:1px solid #dce9e5;display:flex;justify-content:space-between;align-items:center;padding:0 24px;position:sticky;top:0;z-index:5}.topbar strong{font-size:18px}.content{padding:24px 28px}.page-title{font-size:25px;margin:0 0 18px}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.card{border-radius:15px;padding:19px 20px;box-shadow:0 5px 18px #0b5a4a12}.card .label{font-size:13px}.card .value{font-size:25px;font-weight:800;margin-top:7px}.c1{background:#dcf6e9}.c1 .value{color:#00865e}.c2{background:#e2efff}.c2 .value{color:#1769cf}.c3{background:#ffe5e9}.c3 .value{color:#e32948}.c4{background:#eee7ff}.c4 .value{color:#5b39c6}.grid2{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:18px}.panel{background:#fff;border-radius:15px;padding:20px;box-shadow:0 5px 18px #0b5a4a0c}.panel h2{font-size:18px;margin:0 0 17px}.row{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #e7eeee}.actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}.btn{padding:10px 15px;border-radius:9px;font-weight:700}.btn-green{background:#07865f;color:#fff}.btn-red{background:#e52c48;color:#fff}.btn-gray{background:#707b82;color:#fff}.btn-blue{background:#1769cf;color:#fff}.btn-orange{background:#f59e0b;color:#fff}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:700px}th,td{padding:12px 11px;border-bottom:1px solid #e5eeee;text-align:left;font-size:13px}th{background:#edf7f5}.in{color:#00865e;font-weight:700}.out{color:#e32948;font-weight:700}.empty{text-align:center;padding:30px;color:#718080}.toolbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:18px}.field{display:flex;flex-direction:column;gap:7px}.field label{font-weight:700;font-size:13px}.field input,.field select,.field textarea{border:1px solid #c9d9d6;border-radius:9px;padding:11px 12px;background:#fff;outline:none}.field textarea{min-height:90px;resize:vertical}.modal-bg{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px;z-index:30}.modal{width:min(520px,100%);background:#fff;border-radius:18px;overflow:hidden}.modal-head{background:#006b5b;color:#fff;padding:18px 20px;display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0;font-size:18px}.close{background:transparent;color:#fff;font-size:25px}.modal-body{padding:20px;display:grid;gap:14px}.modal-foot{padding:15px 20px;display:flex;justify-content:flex-end;gap:10px;background:#f8faf9}.status{padding:10px 12px;border-radius:9px;background:#edf7f5;margin-bottom:14px;display:none}.status.error{background:#ffe7ea;color:#a20e29}.status.ok{background:#e3f8ed;color:#00683f}.badge{display:inline-block;padding:5px 8px;border-radius:20px;font-size:11px;font-weight:700;background:#e5f6ef;color:#007051}.badge.off{background:#eee;color:#666}.mini{font-size:12px;color:#64748b}.print-title{display:none;text-align:center}@media(max-width:900px){.sidebar{width:74px;padding:14px 8px}.brand{justify-content:center}.brand h1,.brand small{display:none}.nav button{font-size:0;text-align:center}.nav button:first-letter{font-size:20px}.main{margin-left:74px;width:calc(100% - 74px)}.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}@media(max-width:600px){.topbar{padding:0 14px}.content{padding:14px}.cards{gap:9px}.card{padding:14px}.card .value{font-size:19px}.panel{padding:14px}.page-title{font-size:21px}.top-date{font-size:12px}}@media print{.sidebar,.topbar,.no-print{display:none!important}.main{margin:0;width:100%}.content{padding:0}.panel{box-shadow:none}.print-title{display:block!important}}
+
+.page-loading{opacity:.72;transition:opacity .12s ease}
+.nav button{transition:background .12s ease,transform .08s ease}
+.nav button:active,.btn:active{transform:scale(.97)}
+.btn{transition:opacity .12s ease,transform .08s ease}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-icon">🕌</div><div><h1>Pembukuan<br>Pengajian</h1><small>Kas & Keuangan</small></div></div>
+  <nav class="nav">
+    <button id="nav-dashboard" onclick="bukaHalaman('dashboard')">⌂ &nbsp; Dashboard</button>
+    <button id="nav-pemasukan" onclick="bukaHalaman('pemasukan')">↗ &nbsp; Pemasukan</button>
+    <button id="nav-pengeluaran" onclick="bukaHalaman('pengeluaran')">↘ &nbsp; Pengeluaran</button>
+    <button id="nav-laporan" onclick="bukaHalaman('laporan')">▣ &nbsp; Laporan</button>
+    <button id="nav-kategori" onclick="bukaHalaman('kategori')">☷ &nbsp; Kategori</button>
+    <button id="nav-pengaturan" onclick="bukaHalaman('pengaturan')">⚙ &nbsp; Pengaturan</button>
+  </nav>
+</aside>
+<main class="main">
+<header class="topbar"><strong id="topTitle">Dashboard</strong><div class="top-date">📅 <span id="today"></span> &nbsp;&nbsp; 👤 Pengajian</div></header>
+<section class="content"><div id="status" class="status"></div><div id="page"></div></section>
+</main>
+</div>
+
+<div class="modal-bg" id="transactionModal"><div class="modal">
+<div class="modal-head"><h3 id="modalTitle">Tambah Pemasukan</h3><button class="close" onclick="tutupModal('transactionModal')">×</button></div>
+<div class="modal-body">
+<input type="hidden" id="trxId"><input type="hidden" id="trxRow">
+<div class="field"><label>Tanggal</label><input type="date" id="trxTanggal"></div>
+<div class="field"><label id="kategoriLabel">Sumber Pemasukan</label><select id="trxKategori"></select></div>
+<div class="field"><label>Keterangan</label><textarea id="trxKeterangan" placeholder="Contoh: Iuran pengajian"></textarea></div>
+<div class="field"><label>Nominal</label><input type="number" id="trxNominal" min="0" placeholder="Contoh: 100000"></div>
+<div class="field"><label>Metode</label><select id="trxMetode"><option>Cash</option><option>Transfer</option><option>Lainnya</option></select></div>
+</div><div class="modal-foot"><button class="btn btn-gray" onclick="tutupModal('transactionModal')">Batal</button><button class="btn btn-green" onclick="simpanTransaksi()">Simpan</button></div>
+</div></div>
+
+<div class="modal-bg" id="categoryModal"><div class="modal">
+<div class="modal-head"><h3 id="catModalTitle">Tambah Kategori</h3><button class="close" onclick="tutupModal('categoryModal')">×</button></div>
+<div class="modal-body"><input type="hidden" id="catRow"><div class="field"><label>Jenis</label><select id="catJenis"><option value="PEMASUKAN">Pemasukan</option><option value="PENGELUARAN">Pengeluaran</option></select></div><div class="field"><label>Nama Kategori</label><input id="catNama"></div><div class="field"><label>Keterangan</label><textarea id="catKet"></textarea></div></div>
+<div class="modal-foot"><button class="btn btn-gray" onclick="tutupModal('categoryModal')">Batal</button><button class="btn btn-green" onclick="simpanKategori()">Simpan</button></div>
+</div></div>
+
+<script>
+let halaman='dashboard',jenisTransaksi='PEMASUKAN';
+const $=id=>document.getElementById(id);
+const rupiah=n=>'Rp '+Number(n||0).toLocaleString('id-ID');
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const CACHE_TTL=15000;
+const FAST_CACHE=new Map();
+const INFLIGHT=new Map();
+let clickBusy=false;
+
+function setBusyButton(btn,busy){
+  if(!btn)return;
+  if(busy){
+    btn.dataset.oldText=btn.innerHTML;
+    btn.innerHTML='Memproses...';
+    btn.disabled=true;
+    btn.style.opacity='.65';
+  }else{
+    btn.innerHTML=btn.dataset.oldText||btn.innerHTML;
+    btn.disabled=false;
+    btn.style.opacity='';
+  }
+}
+
+function callServer(fn,...args){
+  const key=fn+'|'+JSON.stringify(args);
+  return new Promise((resolve,reject)=>{
+    try{
+      const runner=google.script.run.withSuccessHandler(resolve).withFailureHandler(reject);
+      runner[fn](...args);
+    }catch(e){reject(e)}
+  });
+}
+
+function callServerFast(fn,...args){
+  const key=fn+'|'+JSON.stringify(args);
+  const now=Date.now();
+  const cached=FAST_CACHE.get(key);
+  if(cached && now-cached.time<CACHE_TTL){
+    // Tampilkan data cache seketika, lalu refresh di belakang.
+    Promise.resolve().then(()=>callServer(fn,...args)).then(v=>{
+      FAST_CACHE.set(key,{time:Date.now(),value:v});
+    }).catch(()=>{});
+    return Promise.resolve(cached.value);
+  }
+  if(INFLIGHT.has(key)) return INFLIGHT.get(key);
+  const req=callServer(fn,...args).then(v=>{
+    FAST_CACHE.set(key,{time:Date.now(),value:v});
+    INFLIGHT.delete(key);
+    return v;
+  }).catch(e=>{
+    INFLIGHT.delete(key);
+    throw e;
+  });
+  INFLIGHT.set(key,req);
+  return req;
+}
+
+function clearFastCache(){
+  FAST_CACHE.clear();
+}
+function todayISO(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function fmtDate(v){if(!v)return '-';const d=new Date(v);return isNaN(d)?String(v):d.toLocaleDateString('id-ID')}
+function notify(msg,error=false){const s=$('status');s.textContent=msg;s.className='status '+(error?'error':'ok');s.style.display='block';setTimeout(()=>s.style.display='none',3500)}
+function bukaHalaman(p){
+  halaman=p;
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+  $('nav-'+p)?.classList.add('active');
+  const t={dashboard:'Dashboard',pemasukan:'Pemasukan',pengeluaran:'Pengeluaran',laporan:'Laporan',kategori:'Kategori',pengaturan:'Pengaturan'};
+  $('topTitle').textContent=t[p]||'Dashboard';
+  // Umpan balik klik langsung supaya tombol terasa responsif.
+  $('page').classList.add('page-loading');
+  requestAnimationFrame(()=>{
+    if(p==='dashboard')loadDashboard();
+    else if(p==='pemasukan')loadTransaksiPage('PEMASUKAN');
+    else if(p==='pengeluaran')loadTransaksiPage('PENGELUARAN');
+    else if(p==='laporan')loadLaporan();
+    else if(p==='kategori')loadKategori();
+    else loadPengaturan();
+  });
+}
+
+async function loadDashboard(){
+ $('page').innerHTML='<h1 class="page-title">Dashboard</h1><div class="empty">Memuat data...</div>';
+ try{const d=await callServerFast('getDashboard');renderDashboard(d)}catch(e){notify(e.message||e,true);$('page').innerHTML='<h1 class="page-title">Dashboard</h1><div class="empty">Data belum dapat dibaca. Pastikan nama sheet dan header sesuai.</div>'}
+}
+function renderDashboard(d){ $('page').classList.remove('page-loading');
+ const pin=Number(d.total_pemasukan||0),pout=Number(d.total_pengeluaran||0),saldo=Number(d.saldo||0),jumlah=Number(d.jumlah_transaksi||0),rows=d.transaksi_terbaru||[];
+ $('page').innerHTML=`<h1 class="page-title">Dashboard</h1><div class="cards">
+ <div class="card c1"><div class="label">Saldo Kas</div><div class="value">${rupiah(saldo)}</div></div>
+ <div class="card c2"><div class="label">Total Pemasukan</div><div class="value">${rupiah(pin)}</div></div>
+ <div class="card c3"><div class="label">Total Pengeluaran</div><div class="value">${rupiah(pout)}</div></div>
+ <div class="card c4"><div class="label">Jumlah Transaksi</div><div class="value">${jumlah}</div></div></div>
+ <div class="grid2"><div class="panel"><h2>Ringkasan Keuangan</h2><div class="row"><span>Total Pemasukan</span><b class="in">${rupiah(pin)}</b></div><div class="row"><span>Total Pengeluaran</span><b class="out">${rupiah(pout)}</b></div><div class="row"><span>Saldo Kas</span><b>${rupiah(saldo)}</b></div><div class="actions"><button class="btn btn-green" onclick="bukaPemasukan()">+ Pemasukan</button><button class="btn btn-red" onclick="bukaPengeluaran()">+ Pengeluaran</button></div></div>
+ <div class="panel"><h2>Informasi</h2><div class="row"><span>Database</span><b class="in">Google Sheet</b></div><div class="row"><span>Status</span><b class="in">Terhubung</b></div><div class="row"><span>Platform</span><b>Web + HP</b></div></div></div>
+ <div class="panel" style="margin-top:18px"><h2>Transaksi Terbaru</h2>${tableTransaksi(rows,true)}</div>`;
+}
+function tableTransaksi(rows,dashboard=false){if(!rows||!rows.length)return '<div class="empty">Belum ada transaksi.</div>';return `<div class="table-wrap"><table><thead><tr><th>No</th><th>Tanggal</th><th>Jenis</th><th>${dashboard?'Kategori/Sumber':'Kategori/Sumber'}</th><th>Keterangan</th><th>Nominal</th><th>Metode</th>${dashboard?'':'<th class="no-print">Aksi</th>'}</tr></thead><tbody>${rows.map((r,i)=>{const isIn=String(r.jenis).toUpperCase()==='PEMASUKAN';const cat=isIn?(r.sumber||r.kategori||'-'):(r.kategori||r.sumber||'-');return `<tr><td>${i+1}</td><td>${fmtDate(r.tanggal)}</td><td class="${isIn?'in':'out'}">${esc(r.jenis)}</td><td>${esc(cat)}</td><td>${esc(r.keterangan||'-')}</td><td>${rupiah(r.nominal)}</td><td>${esc(r.metode||'Cash')}</td>${dashboard?'':`<td class="no-print"><button class="btn btn-orange" style="padding:6px 9px" onclick='editTransaksi(${JSON.stringify(r)})'>Edit</button> <button class="btn btn-red" style="padding:6px 9px" onclick="hapusTransaksi('${esc(r.id)}','${isIn?'PEMASUKAN':'PENGELUARAN'}')">Hapus</button></td>`}</tr>`}).join('')}</tbody></table></div>`}
+
+async function loadTransaksiPage(jenis){
+ $('page').classList.remove('page-loading');
+ const isIn=jenis==='PEMASUKAN';$('page').innerHTML=`<h1 class="page-title">${isIn?'Pemasukan':'Pengeluaran'}</h1><div class="panel"><div class="actions no-print"><button class="btn ${isIn?'btn-green':'btn-red'}" onclick="${isIn?'bukaPemasukan':'bukaPengeluaran'}()">+ Tambah ${isIn?'Pemasukan':'Pengeluaran'}</button><button class="btn btn-blue" onclick="bukaHalaman('${isIn?'pemasukan':'pengeluaran'}')">↻ Refresh</button></div><div id="trxList"><div class="empty">Memuat data...</div></div></div>`;
+ try{const rows=await callServerFast(isIn?'getPemasukan':'getPengeluaran');$('trxList').innerHTML=tableTransaksi(rows,false)}catch(e){$('trxList').innerHTML='<div class="empty">Gagal membaca data.</div>';notify(e.message||e,true)}
+}
+async function bukaTransaksi(jenis,row=null){jenisTransaksi=jenis;const edit=!!row;$('modalTitle').textContent=(edit?'Edit ':'Tambah ')+(jenis==='PEMASUKAN'?'Pemasukan':'Pengeluaran');$('kategoriLabel').textContent=jenis==='PEMASUKAN'?'Sumber Pemasukan':'Kategori Pengeluaran';$('trxId').value=edit?(row.id||''):'';$('trxRow').value=edit?(row.row||''):'';$('trxTanggal').value=edit?(row.tanggal||'').slice(0,10):todayISO();$('trxKeterangan').value=edit?(row.keterangan||''):'';$('trxNominal').value=edit?(row.nominal||''):'';$('trxMetode').value=edit?(row.metode||'Cash'):'Cash';$('trxKategori').innerHTML='<option>Memuat...</option>';$('transactionModal').style.display='flex';try{const arr=await callServerFast(jenis==='PEMASUKAN'?'getSumberPemasukan':'getKategoriPengeluaran');let current=jenis==='PEMASUKAN'?(row?.sumber||row?.kategori||''):(row?.kategori||row?.sumber||'');$('trxKategori').innerHTML='<option value="">-- Pilih --</option>'+(arr||[]).map(x=>`<option value="${esc(x)}" ${String(x)===String(current)?'selected':''}>${esc(x)}</option>`).join('');if(current&&!arr.includes(current))$('trxKategori').insertAdjacentHTML('beforeend',`<option selected value="${esc(current)}">${esc(current)}</option>`)}catch(e){$('trxKategori').innerHTML='<option value="">Gagal memuat</option>';notify(e.message||e,true)}}
+function bukaPemasukan(){bukaTransaksi('PEMASUKAN')}function bukaPengeluaran(){bukaTransaksi('PENGELUARAN')}
+function editTransaksi(r){bukaTransaksi(String(r.jenis).toUpperCase()==='PEMASUKAN'?'PEMASUKAN':'PENGELUARAN',r)}
+async function simpanTransaksi(){
+ const saveBtn=document.querySelector('#transactionModal .modal-foot .btn-green');
+ if(clickBusy)return;
+ clickBusy=true;setBusyButton(saveBtn,true);
+ const cat=$('trxKategori').value,data={tanggal:$('trxTanggal').value,sumber:jenisTransaksi==='PEMASUKAN'?cat:'',kategori:jenisTransaksi==='PENGELUARAN'?cat:'',keterangan:$('trxKeterangan').value.trim(),nominal:Number($('trxNominal').value),metode:$('trxMetode').value};
+ if(!data.tanggal||!cat||!data.keterangan||data.nominal<=0){
+   notify('Lengkapi semua data transaksi.',true);
+   clickBusy=false;setBusyButton(saveBtn,false);
+   return;
+ }
+ try{const id=$('trxId').value;const fn=jenisTransaksi==='PEMASUKAN'?(id?'editPemasukan':'simpanPemasukan'):(id?'editPengeluaran':'simpanPengeluaran');if(id)await callServer(fn,id,data);else await callServer(fn,data);clearFastCache();tutupModal('transactionModal');notify('Data berhasil disimpan.');bukaHalaman(jenisTransaksi==='PEMASUKAN'?'pemasukan':'pengeluaran')}catch(e){notify(e.message||e,true)}finally{clickBusy=false;setBusyButton(saveBtn,false)}}
+async function hapusTransaksi(id,jenis){if(!confirm('Hapus transaksi ini?'))return;try{await callServer(jenis==='PEMASUKAN'?'hapusPemasukan':'hapusPengeluaran',id);clearFastCache();notify('Transaksi berhasil dihapus.');bukaHalaman(jenis==='PEMASUKAN'?'pemasukan':'pengeluaran')}catch(e){notify(e.message||e,true)}}
+
+async function loadKategori(){ $('page').classList.remove('page-loading'); $('page').innerHTML='<h1 class="page-title">Kategori</h1><div class="panel"><div class="actions no-print"><button class="btn btn-green" onclick="bukaTambahKategori()">+ Tambah Kategori</button></div><div id="catList"><div class="empty">Memuat...</div></div></div>';try{const rows=await callServerFast('getSemuaKategori');$('catList').innerHTML=tableKategori(rows||[])}catch(e){notify(e.message||e,true)}}
+function tableKategori(rows){if(!rows.length)return '<div class="empty">Belum ada kategori.</div>';return `<div class="table-wrap"><table><thead><tr><th>No</th><th>Jenis</th><th>Nama Kategori</th><th>Keterangan</th><th>Status</th><th class="no-print">Aksi</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.jenis)}</td><td><b>${esc(r.nama)}</b></td><td>${esc(r.keterangan||'-')}</td><td><span class="badge ${String(r.status).toUpperCase()!=='AKTIF'?'off':''}">${esc(r.status||'Aktif')}</span></td><td class="no-print"><button class="btn btn-orange" style="padding:6px 9px" onclick='editKategori(${JSON.stringify(r)})'>Edit</button> <button class="btn btn-red" style="padding:6px 9px" onclick="hapusKategori('${r._row}')">Hapus</button></td></tr>`).join('')}</tbody></table></div>`}
+function bukaTambahKategori(){$('catRow').value='';$('catJenis').value='PEMASUKAN';$('catNama').value='';$('catKet').value='';$('catModalTitle').textContent='Tambah Kategori';$('categoryModal').style.display='flex'}
+function editKategori(r){$('catRow').value=r._row;$('catJenis').value=r.jenis;$('catNama').value=r.nama;$('catKet').value=r.keterangan||'';$('catModalTitle').textContent='Edit Kategori';$('categoryModal').style.display='flex'}
+async function simpanKategori(){const data={jenis:$('catJenis').value,nama:$('catNama').value.trim(),keterangan:$('catKet').value.trim()};if(!data.nama){notify('Nama kategori wajib diisi.',true);return}try{const row=$('catRow').value;if(row)await callServer('editKategori',row,data);else await callServer('simpanKategori',data);clearFastCache();tutupModal('categoryModal');notify('Kategori berhasil disimpan.');loadKategori()}catch(e){notify(e.message||e,true)}}
+async function hapusKategori(row){if(!confirm('Hapus kategori ini?'))return;try{await callServer('hapusKategori',row);clearFastCache();notify('Kategori berhasil dihapus.');loadKategori()}catch(e){notify(e.message||e,true)}}
+
+async function loadLaporan(){$('page').classList.remove('page-loading');const d=new Date();$('page').innerHTML=`<h1 class="page-title">Laporan Keuangan</h1><div class="panel"><div class="toolbar no-print"><div class="field"><label>Bulan</label><select id="lapBulan">${['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'].map((x,i)=>`<option value="${i+1}" ${i===d.getMonth()?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Tahun</label><input id="lapTahun" type="number" value="${d.getFullYear()}" style="width:110px"></div><button class="btn btn-blue" onclick="tampilkanLaporan()">Tampilkan</button><button class="btn btn-green" onclick="window.print()">🖨 Cetak / PDF</button></div><div id="laporanIsi"><div class="empty">Memuat...</div></div></div>`;await tampilkanLaporan()}
+async function tampilkanLaporan(){try{const d=await callServerFast('getLaporan',Number($('lapBulan').value),Number($('lapTahun').value));const rows=d.transaksi||[],pin=Number(d.total_pemasukan||0),pout=Number(d.total_pengeluaran||0);$('laporanIsi').innerHTML=`<div class="print-title"><h1>PEMBUKUAN PENGAJIAN</h1><h2>LAPORAN KEUANGAN</h2></div><div class="cards"><div class="card c2"><div class="label">Total Pemasukan</div><div class="value">${rupiah(pin)}</div></div><div class="card c3"><div class="label">Total Pengeluaran</div><div class="value">${rupiah(pout)}</div></div><div class="card c1"><div class="label">Saldo</div><div class="value">${rupiah(pin-pout)}</div></div><div class="card c4"><div class="label">Transaksi</div><div class="value">${rows.length}</div></div></div><div class="panel" style="margin-top:18px">${tableTransaksi(rows,true)}</div>`}catch(e){notify(e.message||e,true)}}
+async function loadPengaturan(){$('page').classList.remove('page-loading');try{const d=await callServerFast('getPengaturan');$('page').innerHTML=`<h1 class="page-title">Pengaturan</h1><div class="panel"><h2>Informasi Aplikasi</h2><div class="row"><span>Nama Aplikasi</span><b>${esc(d.nama_aplikasi||'Pembukuan Pengajian')}</b></div><div class="row"><span>Nama Pengajian</span><b>${esc(d.nama_pengajian||'Pengajian')}</b></div><div class="row"><span>Database</span><b class="in">Google Sheet</b></div><div class="row"><span>Status</span><b class="in">Terhubung</b></div><div class="row"><span>Saldo Awal</span><b>${rupiah(d.saldo_awal||0)}</b></div><div class="actions no-print"><button class="btn btn-blue" onclick="jalankanSetup()">Periksa / Siapkan Database</button><button class="btn btn-gray" onclick="bukaHalaman('dashboard')">Kembali Dashboard</button></div></div>`}catch(e){notify(e.message||e,true)}}
+async function jalankanSetup(){try{const r=await callServer('setupDatabase');clearFastCache();notify('Database berhasil diperiksa.');console.log(r)}catch(e){notify(e.message||e,true)}}
+function tutupModal(id){$(id).style.display='none'}
+$('today').textContent=new Date().toLocaleDateString('id-ID');
+// Prefetch dashboard segera setelah UI tampil; hasilnya dipakai saat user kembali ke Dashboard.
+bukaHalaman('dashboard');
+setTimeout(()=>{callServerFast('getPemasukan').catch(()=>{});callServerFast('getPengeluaran').catch(()=>{});},120);
+</script>
+</body></html>
