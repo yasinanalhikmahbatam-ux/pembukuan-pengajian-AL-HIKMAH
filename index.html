@@ -75,6 +75,7 @@ function setBusyButton(btn,busy){
 }
 
 const API_URL='https://script.google.com/macros/s/AKfycbz8f3TbIQ4oULQHQf8MKgtLxFmpkcpGxZhuf-AS-yYMVrUC1iKn994BMKwqBLRXklktPA/exec';
+let jsonpSeq=0;
 function callServer(fn,...args){
   return new Promise((resolve,reject)=>{
     const callback='__pwaJsonp_'+Date.now()+'_'+(++jsonpSeq);
