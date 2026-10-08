@@ -74,8 +74,7 @@ function setBusyButton(btn,busy){
   }
 }
 
-const API_URL='https://script.google.com/macros/s/AKfycbw7SrE0gygQ_CgALMF0CmV4DS4DXpCvRCfuicAcRMEuus1UFDt41Z87ltIS6LUraHJ-kg/exec';
-let jsonpSeq=0;
+const API_URL='https://script.google.com/macros/s/AKfycbz8f3TbIQ4oULQHQf8MKgtLxFmpkcpGxZhuf-AS-yYMVrUC1iKn994BMKwqBLRXklktPA/exec';
 function callServer(fn,...args){
   return new Promise((resolve,reject)=>{
     const callback='__pwaJsonp_'+Date.now()+'_'+(++jsonpSeq);
