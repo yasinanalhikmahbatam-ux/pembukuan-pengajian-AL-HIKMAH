@@ -198,14 +198,13 @@ async function hapusTransaksi(id,jenis){if(!confirm('Hapus transaksi ini?'))retu
 async function loadKategori(){ $('page').classList.remove('page-loading'); $('page').innerHTML='<h1 class="page-title">Kategori</h1><div class="panel"><div class="actions no-print"><button class="btn btn-green" onclick="bukaTambahKategori()">+ Tambah Kategori</button></div><div id="catList"><div class="empty">Memuat...</div></div></div>';try{const rows=await callServerFast('getSemuaKategori');$('catList').innerHTML=tableKategori(rows||[])}catch(e){notify(e.message||e,true)}}
 function tableKategori(rows){if(!rows.length)return '<div class="empty">Belum ada kategori.</div>';return `<div class="table-wrap"><table><thead><tr><th>No</th><th>Jenis</th><th>Nama Kategori</th><th>Keterangan</th><th>Status</th><th class="no-print">Aksi</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.jenis)}</td><td><b>${esc(r.nama)}</b></td><td>${esc(r.keterangan||'-')}</td><td><span class="badge ${String(r.status).toUpperCase()!=='AKTIF'?'off':''}">${esc(r.status||'Aktif')}</span></td><td class="no-print"><button class="btn btn-orange" style="padding:6px 9px" onclick='editKategori(${JSON.stringify(r)})'>Edit</button> <button class="btn btn-red" style="padding:6px 9px" onclick="hapusKategori('${r._row}')">Hapus</button></td></tr>`).join('')}</tbody></table></div>`}
 function bukaTambahKategori(){$('catRow').value='';$('catJenis').value='PEMASUKAN';$('catNama').value='';$('catKet').value='';$('catModalTitle').textContent='Tambah Kategori';$('categoryModal').style.display='flex'}
-function editKategori(r) {
-  $('catRow').value = r.id || r.ID || r._row || '';
-  $('catJenis').value = r.jenis || r.tipe || r.TIPE || '';
-  $('catNama').value = r.nama || r.NAMA || '';
-  $('catKet').value = r.keterangan || r.KETERANGAN || '';
-
-  $('catModalTitle').textContent = 'Edit Kategori';
-  $('categoryModal').style.display = 'flex';
+function editKategori(r){
+  $('catRow').value=r._row;
+  $('catJenis').value=r.jenis;
+  $('catNama').value=r.nama;
+  $('catKet').value=r.keterangan||'';
+  $('catModalTitle').textContent='Edit Kategori';
+  $('categoryModal').style.display='flex';
 }
 async function simpanKategori(){const data={jenis:$('catJenis').value,nama:$('catNama').value.trim(),keterangan:$('catKet').value.trim()};if(!data.nama){notify('Nama kategori wajib diisi.',true);return}try{const row=$('catRow').value;if(row)await callServer('editKategori',row,data);else await callServer('simpanKategori',data);clearFastCache();tutupModal('categoryModal');notify('Kategori berhasil disimpan.');loadKategori()}catch(e){notify(e.message||e,true)}}
 async function hapusKategori(row){if(!confirm('Hapus kategori ini?'))return;try{await callServer('hapusKategori',row);clearFastCache();notify('Kategori berhasil dihapus.');loadKategori()}catch(e){notify(e.message||e,true)}}
