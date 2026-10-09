@@ -1,21 +1,24 @@
 {
-"id": "/pembukuan-pengajian-AL-HIKMAH/",
+"id": "./",
 "name": "Pembukuan Pengajian AL-HIKMAH",
 "short_name": "Pembukuan AL-HIKMAH",
-"description": "Aplikasi pembukuan pemasukan, pengeluaran, dan laporan Pengajian AL-HIKMAH.",
-"start_url": "/pembukuan-pengajian-AL-HIKMAH/",
-"scope": "/pembukuan-pengajian-AL-HIKMAH/",
+"description": "Aplikasi pembukuan kas dan keuangan pengajian.",
+"lang": "id-ID",
+"start_url": "./",
+"scope": "./",
 "display": "standalone",
-"background_color": "#f0fdf4",
-"theme_color": "#166534",
+"orientation": "any",
+"background_color": "#eef8f4",
+"theme_color": "#056653",
+"categories": ["finance", "business", "utilities"],
 "icons": [
 {
-"src": "/pembukuan-pengajian-AL-HIKMAH/icon-192.png",
+"src": "./icon-192.png",
 "sizes": "192x192",
 "type": "image/png"
 },
 {
-"src": "/pembukuan-pengajian-AL-HIKMAH/icon-512.png",
+"src": "./icon-512.png",
 "sizes": "512x512",
 "type": "image/png"
 }
