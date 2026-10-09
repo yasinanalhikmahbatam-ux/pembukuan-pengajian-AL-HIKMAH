@@ -10,7 +10,11 @@
 "orientation": "any",
 "background_color": "#eef8f4",
 "theme_color": "#056653",
-"categories": ["finance", "business", "utilities"],
+"categories": [
+"finance",
+"business",
+"utilities"
+],
 "icons": [
 {
 "src": "./icon-192.png",
