@@ -1,4 +1,3 @@
-
 {
   "id":"./","name":"Pembukuan Pengajian","short_name":"Pembukuan Pengajian",
   "description":"Aplikasi pembukuan kas dan keuangan pengajian.","lang":"id-ID","start_url":"./","scope":"./",
@@ -14,7 +13,6 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
-  }
+
   ]
 }
-
